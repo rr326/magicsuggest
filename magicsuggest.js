@@ -363,7 +363,16 @@
             /**
              * type to validate against
              */
-            vtype: null
+            vtype: null,
+
+            /**
+             * ROSS
+             * If true, acts as a simple, editable combo box
+             * - the item is an editable text field.
+             * - You don't "delete" it like a tag.
+             * - You edit it like a text inbput
+             */
+             isSimpleComboBox: false
         };
 
         var conf = $.extend({},options);
@@ -1310,6 +1319,25 @@
                     _hasFocus = true;
                     ms.container.addClass('ms-ctn-focus');
                     ms.container.removeClass(cfg.invalidCls);
+
+                    if (cfg.isSimpleComboBox) {
+                        /**
+                         * ROSS
+                         * Treat this as a simple combo box.
+                         * Here, when focusing on the input, convert the selected item into a free text,
+                         * unselected state.
+                         */
+                         console.log('isSimpleComboBox')
+                         /*
+                         TODO
+                         * Follow the code here
+                         * But I think what I want to do should be easy (v0 didn't work though)
+                            rawval = ms.getValue()[0]
+                            ms.removeFromSelection(ms.getValue())
+                            <add data back in>
+                            continue as normal!
+                         */
+                    }
 
                     var curLength = ms.getRawValue().length;
                     if(cfg.expandOnFocus === true){
