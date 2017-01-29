@@ -333,6 +333,12 @@
              */
             useCommaKey: true,
 
+            /**
+             * If set to true, using space will validate the user's choice
+             * ROSS added
+             */
+            useSpaceKey: false,
+
 
             /**
              * Determines whether or not the results will be displayed with a zebra table style
@@ -446,7 +452,7 @@
          */
         this.expand = function()
         {
-            if (!cfg.expanded && (this.input.val().length >= cfg.minChars || this.combobox.children().size() > 0)) {
+            if (!cfg.expanded && (this.input.val().length >= cfg.minChars || this.combobox.children().length > 0)) {
                 this.combobox.appendTo(this.container);
                 self._processSuggestions();
                 cfg.expanded = true;
@@ -1364,6 +1370,11 @@
                             e.preventDefault();
                         }
                         break;
+                    case KEYCODES.SPACE:
+                        if(cfg.useSpaceKey === true){
+                            e.preventDefault();
+                        }
+                        break;
                     case KEYCODES.CTRL:
                         _ctrlDown = true;
                         break;
@@ -1418,7 +1429,8 @@
                     case KEYCODES.ENTER:
                     case KEYCODES.TAB:
                     case KEYCODES.COMMA:
-                    if(e.keyCode !== KEYCODES.COMMA || cfg.useCommaKey === true) {
+                    case KEYCODES.SPACE:
+                    if((e.keyCode !== KEYCODES.COMMA && e.keyCode !== KEYCODES.SPACE) || (cfg.useCommaKey === true && e.keyCode === KEYCODES.COMMA )|| (cfg.useSpaceKey===true && e.keyCode === KEYCODES.SPACE )) {
                         e.preventDefault();
                         if(cfg.expanded === true){ // if a selection is performed, select it and reset field
                             selected = ms.combobox.find('.ms-res-item-active:not(.ms-res-item-disabled):first');
@@ -1518,7 +1530,7 @@
     $.fn.magicSuggest = function(options) {
         var obj = $(this);
 
-        if(obj.size() === 1 && obj.data('magicSuggest')) {
+        if(obj.length === 1 && obj.data('magicSuggest')) {
             return obj.data('magicSuggest');
         }
 
@@ -1555,7 +1567,7 @@
             field.container.data('magicSuggest', field);
         });
 
-        if(obj.size() === 1) {
+        if(obj.length === 1) {
             return obj.data('magicSuggest');
         }
         return obj;
