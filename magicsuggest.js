@@ -919,6 +919,11 @@
                         'class': 'ms-sel-ctn'
                     });
                 }
+
+                if (cfg.isSimpleComboBox) {
+                    ms.selectionContainer.addClass('ms-simple-combo-box');
+                }
+
                 ms.selectionContainer.click($.proxy(handlers._onFocus, this));
 
                 if(cfg.selectionPosition === 'inner' && !cfg.selectionContainer) {
@@ -1092,7 +1097,9 @@
                 }
 
                 if(_selection.length === cfg.maxSelection){
-                    self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+                    if (!cfg.isSimpleComboBox) {
+                        self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+                    }
                 } else {
                     ms.helper.hide();
                 }
@@ -1327,16 +1334,6 @@
                          * Here, when focusing on the input, convert the selected item into a free text,
                          * unselected state.
                          */
-                         console.log('isSimpleComboBox')
-                         /*
-                         TODO
-                         * Follow the code here
-                         * But I think what I want to do should be easy (v0 didn't work though)
-                            rawval = ms.getValue()[0]
-                            ms.removeFromSelection(ms.getValue())
-                            <add data back in>
-                            continue as normal!jjsd
-                         */
                         let input = ms.container.find('input'),
                              valarray = ms.getValue(),
                              oldval = valarray.length > 0 ? valarray[0] : "";
@@ -1347,7 +1344,12 @@
                         // Perhaps not ideal, but it is at least peredictable and probably good enough.
                         // Even some benefits to it.
                         input[0].setSelectionRange(0, oldval.length);
-                        console.log('here');
+
+                        /*
+                         * TODO
+                         * set css
+                         * set helper text
+                         */
                     }
 
                     var curLength = ms.getRawValue().length;
@@ -1356,7 +1358,10 @@
                     }
 
                     if(_selection.length === cfg.maxSelection) {
-                        self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+                        if (! cfg.isSimpleComboBox) {
+                            self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+                            }
+
                     } else if(curLength < cfg.minChars) {
                         self._updateHelper(cfg.minCharsRenderer.call(this, cfg.minChars - curLength));
                     }
@@ -1489,7 +1494,9 @@
                     }
                     default:
                         if(_selection.length === cfg.maxSelection){
-                            self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+                            if(_selection.length === cfg.maxSelection){
+                                self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+                            }
                         }
                         else {
                             if(freeInput.length < cfg.minChars) {

@@ -264,3 +264,28 @@
     right: 1px;
     border-radius: 0 3px 3px 0;
 }
+
+/*
+ * ROSS: isSimpleComboBox styling
+ */
+ .ms-simple-combo-box .ms-sel-item{
+    background: inherit;
+    color: inherit;
+    font-size: inherit;
+    border-radius: 0;
+    border: none;
+    margin: 1px 0 1px 0;
+    padding: 0;
+}
+
+.ms-simple-combo-box .ms-sel-item:hover{
+    border: none;
+}
+
+.ms-simple-combo-box .ms-close-btn {
+    display: none;
+}
+
+.ms-simple-combo-box .ms-helper {
+    display: none !important;
+}
