@@ -1335,8 +1335,19 @@
                             rawval = ms.getValue()[0]
                             ms.removeFromSelection(ms.getValue())
                             <add data back in>
-                            continue as normal!
+                            continue as normal!jjsd
                          */
+                        let input = ms.container.find('input'),
+                             valarray = ms.getValue(),
+                             oldval = valarray.length > 0 ? valarray[0] : "";
+                        ms.clear();
+                        input.val(oldval);
+                        // Annoying - when I set selectionStart = oldval.length, it sometimes work but
+                        // sometimes doesnt.  But if I select the entire area it always works.
+                        // Perhaps not ideal, but it is at least peredictable and probably good enough.
+                        // Even some benefits to it.
+                        input[0].setSelectionRange(0, oldval.length);
+                        console.log('here');
                     }
 
                     var curLength = ms.getRawValue().length;
