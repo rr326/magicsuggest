@@ -1337,7 +1337,7 @@
                         let input = ms.container.find('input'),
                              valarray = ms.getValue(),
                              oldval = valarray.length > 0 ? valarray[0] : "";
-                        ms.clear();
+                        ms.clear(true);
                         input.val(oldval);
                         // Annoying - when I set selectionStart = oldval.length, it sometimes work but
                         // sometimes doesnt.  But if I select the entire area it always works.
