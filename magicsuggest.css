@@ -267,6 +267,9 @@
 
 /*
  * ROSS: isSimpleComboBox styling
+ * Note - When I did this, I didn't see the "resultAsString" option.
+ * Perhaps that would have been sufficient. Trying it, it seems a bit buggy for my needs
+ * so not going to invest the time required since this works fine.
  */
  .ms-simple-combo-box .ms-sel-item{
     background: inherit;
