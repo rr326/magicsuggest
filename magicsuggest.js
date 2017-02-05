@@ -1383,6 +1383,9 @@
                 var active = ms.combobox.find('.ms-res-item-active:not(.ms-res-item-disabled):first'),
                     freeInput = ms.input.val();
                 $(ms).trigger('keydown', [ms, e]);
+                if (e.keyCode == KEYCODES.TAB && e.shiftKey) {
+                    return
+                }
 
                 if(e.keyCode === KEYCODES.TAB && (cfg.useTabKey === false ||
                     (cfg.useTabKey === true && active.length === 0 && ms.input.val().length === 0))) {
