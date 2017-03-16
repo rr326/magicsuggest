@@ -1334,7 +1334,7 @@
                          * Here, when focusing on the input, convert the selected item into a free text,
                          * unselected state.
                          */
-                        let input = ms.container.find('input'),
+                        var input = ms.container.find('input'),
                              valarray = ms.getValue(),
                              oldval = valarray.length > 0 ? valarray[0] : "";
                         ms.clear(true);
