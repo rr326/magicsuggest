@@ -372,7 +372,15 @@
              * - You don't "delete" it like a tag.
              * - You edit it like a text inbput
              */
-             isSimpleComboBox: false
+             isSimpleComboBox: false,
+
+             /**
+              * ROSS
+              * There is an odd behavior, probably a bug, that comes out when I capture CMD+Enter
+              * for completion. On CMD Keyup, MS expands the dropdown, which happens on the next tick
+              * making the dropdown start opened, but only sometimes.
+              */
+            ignoreMetaKeyUp: false
         };
 
         var conf = $.extend({},options);
@@ -1468,6 +1476,11 @@
                     }
                     return;
                 }
+
+                if (cfg.ignoreMetaKeyUp && e.key == "Meta") {
+                    return;
+                }
+
                 switch(e.keyCode) {
                     case KEYCODES.UPARROW:
                     case KEYCODES.DOWNARROW:
